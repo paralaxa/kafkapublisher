@@ -1,0 +1,13 @@
+@startuml
+
+participant "Client Application" as Client
+participant "OAuth Server" as OAuth
+participant "Resource Server\n(Kafka Producer)" as ResourceServer
+database "Kafka" as Kafka
+
+Client -> OAuth: Authenticate & Request Token
+OAuth -> Client: Return Access Token
+Client -> ResourceServer: Request to Publish Data\n(Access Token included)
+ResourceServer -> Kafka: Publish Data
+
+@enduml
